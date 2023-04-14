@@ -1,0 +1,8 @@
+workflow-aggregator
+workflow-scm-step
+pipeline-maven
+pipeline-npm
+pipeline-multibranch-defaults
+docker-workflow
+blueocean-pipeline-editor
+ssh-agent

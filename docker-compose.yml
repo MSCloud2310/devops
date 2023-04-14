@@ -1,0 +1,49 @@
+services:
+    gitea:
+        image: gitea/gitea
+        container_name: gitea
+        volumes:
+            - gitea-data:/data
+            # https://unix.stackexchange.com/a/384977
+            - /etc/timezone:/etc/timezone:ro
+            - /etc/localtime:/etc/localtime:ro
+        ports:
+            - "3000:3000"
+            - "22:22"
+        networks:
+            - devopsnet
+        restart: always
+    tomcat:
+        build: ./tomcat
+        image: tomcat
+        container_name: tomcat
+        volumes:
+            - tomcat-data:/usr/local/tomcat/webapps
+        ports:
+            - 8081:8080
+        environment: 
+            # Cambiar por un password más seguro
+            - TOMCAT_PASSWORD=tomcat
+        networks:
+            - devopsnet
+    jenkins:
+        build: ./jenkins
+        image: jenkins
+        container_name: jenkins
+        restart: always
+        volumes:
+            - jenkins-data:/var/jenkins_home
+            - tomcat-data:/deploy
+        ports:
+            - 8080:8080
+        networks:
+            - devopsnet
+
+networks:
+    devopsnet:
+        driver: bridge
+
+volumes:
+    gitea-data:
+    tomcat-data:
+    jenkins-data:
