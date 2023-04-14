@@ -1,4 +1,4 @@
-FROM jenkins/jenkins:lts-jdk11
+FROM jenkins/jenkins:lts-jdk17
 
 # No utilizar en un ambiente de producción
 ENV JENKINS_USER=admin
